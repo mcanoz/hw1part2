@@ -18,7 +18,7 @@ public class App {
 
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
-     //   get("/",(req,res)->"/slm");
+        get("/",(req,res)->"<li> <a href=\"compute\"> UYGULAMA</a></li>");
         
         get(
             "/compute",
