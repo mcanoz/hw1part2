@@ -3,29 +3,55 @@
  */
 package hw1part2;
 
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
 class AppTest {
-    
-    @Test void isItwork(){
-        ArrayList<String> analiste = new ArrayList<String>(5);
-        analiste.add("a");
-        analiste.add("b");
-        analiste.add("c");
-        analiste.add("d");
-        ArrayList<String> listem = new ArrayList<String>(5);
-        listem.add("a");
-        listem.add("b");
-        ArrayList<String> cikti=App.includedStrings(analiste, listem);
-        
-       assertEquals(2, App.includedStrings(analiste, listem).size());
-      // System.out.println(App.includedStrings(analiste, listem).toString());
-       assertTrue(App.includedStrings(analiste, listem).containsAll(listem));
-        listem.add("f");
-        assertFalse(App.includedStrings(analiste, listem).containsAll(listem));
-        
+    String name1;
+    String name2;
+    Integer age1,age2;
+    ArrayList<String> hobbyList1;
+    ArrayList<String> hobbyList2;
+    @BeforeEach void setUp(){
+        name1="testname1";
+        name2="testname2";
+        age1=21;
+        age2=20;
+        hobbyList1=new ArrayList<>(10);
+        hobbyList2=new ArrayList<>(10);
+        hobbyList1.add("sport");
+        hobbyList1.add("dance");
+        hobbyList1.add("tv");
+        hobbyList1.add("books");
+        hobbyList2.add("sport");
+        hobbyList2.add("sculpture");
+        hobbyList2.add("ski");
+        hobbyList2.add("tv");
     }
+    @Test void canFindCommonHobbies(){
+        assertTrue(App.loveCalculator(name1, name2, hobbyList1, hobbyList2, age1,age2).contains("sport"));
+        assertTrue(App.loveCalculator(name1, name2, hobbyList1, hobbyList2, age1,age2).contains("tv"));
+    }
+    @Test void irrelevantHobbiesCheck(){
+        assertFalse(App.loveCalculator(name1, name2, hobbyList1, hobbyList2, age1,age2).contains("dance"));
+        assertFalse(App.loveCalculator(name1, name2, hobbyList1, hobbyList2, age1,age2).contains("books"));
+        assertFalse(App.loveCalculator(name1, name2, hobbyList1, hobbyList2, age1,age2).contains("sculpture"));
+    }
+   
+    @Test void lackOfAge(){
+        assertThrows(Exception.class, ()->{
+            App.loveCalculator(name1, name2, hobbyList1, hobbyList2, age1);
+        });
+    }
+    @Test void consistencyCheck(){
+        ArrayList<String> test1=App.loveCalculator(name1, name2, hobbyList1, hobbyList2, age1,age2);
+        ArrayList<String> test2=App.loveCalculator(name1, name2, hobbyList1, hobbyList2, age1,age2);
+        assertEquals( test1.get(0),test2.get(0) );
+    }
+    
+    
 }

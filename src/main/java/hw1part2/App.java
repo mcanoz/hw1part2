@@ -61,8 +61,12 @@ public class App {
                 
                 ArrayList<String> result = App.loveCalculator(name1, name2, hobbyList1, hobbyList2, age1,age2);
                 Map<String,String> map=new HashMap<String,String>();
-                map.put("result",result.get(0));
-                map.put("commonHobbies",result.get(1));
+                map.put("result",result.remove(0));
+                String dumb = result.toString();
+                dumb=dumb.substring(1,dumb.length()-1);
+                if(dumb.length()==0)
+                    dumb="nothing";
+                map.put("commonHobbies",dumb);
                 
                 return new ModelAndView(map,"lovemeter.moustache");
             }, new MustacheTemplateEngine()
@@ -74,29 +78,15 @@ public class App {
         for(String s:hobbyList2){
             if(hobbyList1.contains(s)){
                 commonHobbies.add(s);
-              //  System.out.println("~~ cikti : "+s);
             }
         }
         ArrayList<String> ret=new ArrayList<String>();
-        Integer rate = (ages[0].hashCode()+ages[1].hashCode()+name1.hashCode()+name2.hashCode() )%100;
+        Integer rate = (ages[0].hashCode()+ages[1].hashCode()+name1.hashCode()+name2.hashCode()+hobbyList1.hashCode()+hobbyList2.hashCode()) % 101;
         rate=(rate>=0)?rate:-rate;
+        rate=rate+commonHobbies.size()*5;
         ret.add(rate.toString());
-        
-        ret.add("\n"+commonHobbies.toString());
+        ret.addAll(commonHobbies);
+        //ret.add("\n"+commonHobbies.toString());
         return ret;
-    }
-    public static ArrayList<String> includedStrings(ArrayList<String> analiste, ArrayList<String> listem ){
-        ArrayList<String> filtreli=new ArrayList(10);
-        //System.out.println("~~ ciktikrali : "+analiste.toString());
-        //System.out.println("~~ ciktikrali : "+listem.toString());
-        for(String s:listem){
-
-            if(analiste.contains(s)){
-                filtreli.add(s);
-              //  System.out.println("~~ cikti : "+s);
-            }
-        }
-       // System.out.println("~~ cikti : "+filtreli.toString());
-        return filtreli;
     }
 }
