@@ -8,8 +8,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
-import org.checkerframework.checker.index.qual.LessThanUnknown;
-
 class AppTest {
     @Test void appHasAGreeting() {
         App classUnderTest = new App();
