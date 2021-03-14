@@ -3,6 +3,7 @@
  */
 package hw1part2;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 import spark.ModelAndView;
@@ -16,9 +17,57 @@ public class App {
     public static void main(String[] args) {
        
         port(Integer.parseInt(System.getenv("PORT")));
-        get("/",(req,res)->"<li> <a href=\"compute\"> UYGULAMA</a></li>");
+        get("/",(req,res)-> //"<li> <a href=\"compute\"> UYGULAMA</a></li>"+
+                            "<li> <a href=\"lovemeter\"> LoveMeter</a></li>");
         
         get(
+            "/lovemeter",
+            (rq,rs) -> {
+                Map<String,String> map = new HashMap<String,String>();
+                map.put("result","not computed yet");
+                map.put("commonHobbies","not found yet");
+                return new ModelAndView(map, "lovemeter.moustache");
+            },
+            new MustacheTemplateEngine()
+        );
+        post(
+            "/lovemeter",
+            (rq,res) -> {
+                String name1=rq.queryParams("name1");
+                String name2=rq.queryParams("name2");
+                
+                System.out.println(name1+" "+name2);
+                Integer age1= 33;//Integer.parseInt( rq.queryParams("age1"));
+                Integer age2=33;// Integer.parseInt( rq.queryParams("age2"));
+                String hobby1=rq.queryParams("hobby1");
+                String hobby2=rq.queryParams("hobby2");
+                
+                java.util.Scanner sc1=new java.util.Scanner(hobby1);
+                //sc1.useDelimiter("[;\r\n]+");
+                ArrayList<String> hobbyList1=new ArrayList<>(10);
+                while(sc1.hasNextLine()){
+                    hobbyList1.add(sc1.nextLine());
+                }
+                sc1.close();
+
+                java.util.Scanner sc2=new java.util.Scanner(hobby2);
+                //sc1.useDelimiter("[;\r\n]+");
+                ArrayList<String> hobbyList2=new ArrayList<>(10);
+                while(sc2.hasNextLine()){
+                    hobbyList2.add(sc2.nextLine());
+                }
+                sc2.close();
+                
+                ArrayList<String> result = App.loveCalculator(name1, name2, hobbyList1, hobbyList2, age1,age2);
+                Map<String,String> map=new HashMap<String,String>();
+                map.put("result",result.get(0));
+                map.put("commonHobbies",result.get(1));
+                
+                return new ModelAndView(map,"lovemeter.moustache");
+            }, new MustacheTemplateEngine()
+        );
+
+     /*   get(
             "/compute",
             (rq,rs) -> {
                 Map<String,String> map = new HashMap<String,String>();
@@ -26,9 +75,9 @@ public class App {
                 return new ModelAndView(map, "compute.moustache");
             },
             new MustacheTemplateEngine()
-        );
+        );*/
 
-        post(
+      /*  post(
             "/compute",
             (rq,res) -> {
                 String input1= rq.queryParams("input1");
@@ -54,11 +103,25 @@ public class App {
                 map.put("result",result);
                 return new ModelAndView(map,"compute.moustache");
             }, new MustacheTemplateEngine()
-        );
+        );*/
         
 
     }
-
+    public static ArrayList<String> loveCalculator(String name1,String name2 , ArrayList<String> hobbyList1, ArrayList<String> hobbyList2, Integer...ages ){
+        ArrayList<String> commonHobbies=new ArrayList(10);
+        for(String s:hobbyList2){
+            if(hobbyList1.contains(s)){
+                commonHobbies.add(s);
+              //  System.out.println("~~ cikti : "+s);
+            }
+        }
+        ArrayList<String> ret=new ArrayList<String>();
+        Integer rate = (ages[0].hashCode()+ages[1].hashCode()+name1.hashCode()+name2.hashCode() )%100;
+        ret.add(rate.toString());
+        
+        ret.add("\n"+commonHobbies.toString());//.replaceAll("[[]]", ""));
+        return ret;
+    }
     public static ArrayList<String> includedStrings(ArrayList<String> analiste, ArrayList<String> listem ){
         ArrayList<String> filtreli=new ArrayList(10);
         //System.out.println("~~ ciktikrali : "+analiste.toString());
