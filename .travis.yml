@@ -1,5 +1,5 @@
 language: java
-befora_install:
+before_install:
  - chmod +x gradlew
- jdk:
+jdk:
  - oraclejdk14
