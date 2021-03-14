@@ -9,10 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 
 class AppTest {
-    @Test void appHasAGreeting() {
-        App classUnderTest = new App();
-        assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
-    }
+    
     @Test void isItwork(){
         ArrayList<String> analiste = new ArrayList<String>(5);
         analiste.add("a");

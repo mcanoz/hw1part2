@@ -3,8 +3,13 @@
  */
 package hw1part2;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
+
+import spark.ModelAndView;
+import spark.template.mustache.MustacheTemplateEngine;
+import static spark.Spark.get;
+import static spark.Spark.post;
 
 public class App {
     public String getGreeting() {
@@ -13,6 +18,47 @@ public class App {
 
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
+     //   get("/",(req,res)->"/slm");
+        
+        get(
+            "/compute",
+            (rq,rs) -> {
+                Map<String,String> map = new HashMap<String,String>();
+                map.put("result","not computed yet");
+                return new ModelAndView(map, "compute.moustache");
+            },
+            new MustacheTemplateEngine()
+        );
+
+        post(
+            "/compute",
+            (rq,res) -> {
+                String input1= rq.queryParams("input1");
+                java.util.Scanner sc1=new java.util.Scanner(input1);
+                //sc1.useDelimiter("[;\r\n]+");
+                ArrayList<String> liste1=new ArrayList<>(10);
+                while(sc1.hasNextLine()){
+                    liste1.add(sc1.nextLine());
+                }
+                sc1.close();
+
+                String input2= rq.queryParams("input2");
+                java.util.Scanner sc2=new java.util.Scanner(input2);
+                //sc1.useDelimiter("[;\r\n]+");
+                ArrayList<String> liste2=new ArrayList<>(10);
+                while(sc2.hasNextLine()){
+                    liste2.add(sc2.nextLine());
+                }
+                sc2.close();
+                
+                String result = App.includedStrings(liste1,liste2).toString();
+                Map<String,String> map=new HashMap<String,String>();
+                map.put("result",result);
+                return new ModelAndView(map,"compute.moustache");
+            }, new MustacheTemplateEngine()
+        );
+        
+
     }
 
     public static ArrayList<String> includedStrings(ArrayList<String> analiste, ArrayList<String> listem ){
