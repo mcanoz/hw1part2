@@ -18,7 +18,7 @@ import static spark.Spark.port;
 public class App {
     public static void main(String[] args) {
        
-        port(Integer.parseInt(System.getenv("PORT")));
+        //port(Integer.parseInt(System.getenv("PORT")));
         get("/",(req,res)-> "<li> <a href=\"lovemeter\"> LoveMeter</a></li>");
         
         get(
@@ -34,12 +34,12 @@ public class App {
         post(
             "/lovemeter",
             (rq,res) -> {
-                String name1=rq.queryParams("name1");
-                String name2=rq.queryParams("name2");
-                
-                System.out.println(name1+" "+name2);
-                Integer age1= 33;//Integer.parseInt( rq.queryParams("age1"));
-                Integer age2=33;// Integer.parseInt( rq.queryParams("age2"));
+                String name1=rq.queryParams("agee1");
+                String name2=rq.queryParams("agee2");
+                Integer age1=Integer.parseInt( name1);
+                Integer age2=Integer.parseInt( name2);
+                name1=rq.queryParams("name1");
+                name2=rq.queryParams("name2");
                 String hobby1=rq.queryParams("hobby1");
                 String hobby2=rq.queryParams("hobby2");
                 
@@ -79,9 +79,10 @@ public class App {
         }
         ArrayList<String> ret=new ArrayList<String>();
         Integer rate = (ages[0].hashCode()+ages[1].hashCode()+name1.hashCode()+name2.hashCode() )%100;
+        rate=(rate>=0)?rate:-rate;
         ret.add(rate.toString());
         
-        ret.add("\n"+commonHobbies.toString());//.replaceAll("[[]]", ""));
+        ret.add("\n"+commonHobbies.toString());
         return ret;
     }
     public static ArrayList<String> includedStrings(ArrayList<String> analiste, ArrayList<String> listem ){

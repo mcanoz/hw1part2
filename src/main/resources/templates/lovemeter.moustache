@@ -7,8 +7,8 @@
 	<textarea name="name2" rows="3" cols="15"></textarea>    
 	<br>
 	<h2>Ages</h2>
-	<textarea name="name1" rows="3" cols="15"></textarea>
-	<textarea name="name2" rows="3" cols="15"></textarea>    
+	<textarea name="agee1" rows="3" cols="15"></textarea>
+	<textarea name="agee2" rows="3" cols="15"></textarea>    
 	
 	<h2>Your hobbies & Other person's hobbies</h2>
 	<textarea name="hobby1" rows="15" cols="15"></textarea>
