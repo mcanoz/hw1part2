@@ -5,7 +5,6 @@ package hw1part2;
 
 import java.util.*;
 
-
 import spark.ModelAndView;
 import spark.template.mustache.MustacheTemplateEngine;
 import static spark.Spark.get;
@@ -14,12 +13,8 @@ import static spark.Spark.port;
 
 
 public class App {
-    public String getGreeting() {
-        return "Hello world.";
-    }
-
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+       
         port(Integer.parseInt(System.getenv("PORT")));
         get("/",(req,res)->"<li> <a href=\"compute\"> UYGULAMA</a></li>");
         

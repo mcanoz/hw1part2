@@ -2,4 +2,4 @@ language: java
 befora_install:
  - chmod +x gradlew
  jdk:
-  - oraclejdk14
+ - oraclejdk14
