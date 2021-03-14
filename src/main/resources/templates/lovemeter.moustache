@@ -1,0 +1,23 @@
+<title>HW1 MCanOz</title>
+<h1>LoveMeter</h1>
+
+<form action="lovemeter" method="post">
+	<h2>Your name and other person's name</h2>
+	<textarea name="name1" rows="3" cols="15"></textarea>
+	<textarea name="name2" rows="3" cols="15"></textarea>    
+	<br>
+	<h2>Ages</h2>
+	<textarea name="name1" rows="3" cols="15"></textarea>
+	<textarea name="name2" rows="3" cols="15"></textarea>    
+	
+	<h2>Your hobbies & Other person's hobbies</h2>
+	<textarea name="hobby1" rows="15" cols="15"></textarea>
+	<textarea name="hobby2" rows="15" cols="15"></textarea>
+	
+	<br>
+
+	<input type="submit">
+</form>
+
+<h1>percentage of love between %{{result}}</h1>
+Your common hobbies are {{commonHobbies}}
