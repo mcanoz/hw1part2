@@ -3,3 +3,4 @@ befora_install:
  - chmod +x gradlew
  jdk:
   - oraclejdk14
+  
